@@ -241,6 +241,205 @@
             color: #495057;
         }
 
+        /* タイムアタック用スタイル */
+        .timer-display {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .timer-display.warning {
+            color: #dc3545;
+            animation: blink 0.5s infinite;
+        }
+
+        .time-attack-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.3em;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .ranking-list {
+            margin: 20px 0;
+        }
+
+        .ranking-item {
+            padding: 20px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .ranking-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ranking-rank {
+            font-size: 1.5em;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        .ranking-score {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .ranking-accuracy {
+            color: #6c757d;
+        }
+
+        .ranking-date {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .effect-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .effect-text {
+            font-size: 3em;
+            font-weight: bold;
+            animation: popup 0.5s ease-out;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 2em;
+            animation: sparkle 1s ease-out;
+        }
+
+        .countdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            color: white;
+            font-size: 5em;
+            font-weight: bold;
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            animation: confetti 3s linear;
+            z-index: 1500;
+        }
+
+        .result-stats {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .result-stats-item {
+            font-size: 1.8em;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .result-rank-icon {
+            font-size: 3em;
+            margin: 20px 0;
+            animation: popup 0.8s ease-out;
+        }
+
+        /* CSSアニメーション */
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px currentColor; }
+            50% { box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes countUp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); color: #ffd700; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes popup {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .glow-green {
+            animation: glow 0.5s ease-in-out 2;
+            border-color: #28a745 !important;
+            background: #28a745 !important;
+            color: white !important;
+        }
+
+        .glow-red {
+            animation: glow 0.5s ease-in-out 2;
+            border-color: #dc3545 !important;
+            background: #dc3545 !important;
+            color: white !important;
+        }
+
+        .shake-screen {
+            animation: shake 0.5s ease-in-out;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.8em;
@@ -257,6 +456,18 @@
             .btn {
                 font-size: 1.2em;
             }
+
+            .timer-display {
+                font-size: 1.8em;
+            }
+
+            .effect-text {
+                font-size: 2em;
+            }
+
+            .countdown-overlay {
+                font-size: 3em;
+            }
         }
     </style>
 </head>
@@ -268,7 +479,9 @@
         <div id="menu-screen" class="screen active">
             <div class="menu-buttons">
                 <button id="start-btn" class="btn btn-primary" onclick="startGame()">なぞなぞスタート！</button>
+                <button class="btn btn-secondary" onclick="startTimeAttack()">⏱️ タイムアタック！</button>
                 <button class="btn btn-secondary" onclick="showCollection()">ずかん</button>
+                <button class="btn btn-secondary" onclick="showRankings()">🏆 ランキング</button>
             </div>
             <div class="stats">
                 <p>クリアしたなぞなぞ: <span id="total-solved">0</span> / <span id="total-riddles">0</span></p>
@@ -292,7 +505,53 @@
             <div class="collection-grid" id="collection-grid"></div>
             <button class="back-btn" onclick="showMenu()">メニューにもどる</button>
         </div>
+
+        <!-- タイムアタック画面 -->
+        <div id="time-attack-screen" class="screen">
+            <div class="timer-display" id="timer-display">⏱️ 残り: 60秒</div>
+            <div class="time-attack-stats">
+                <div class="stat-item">
+                    <div>🎯 正解</div>
+                    <div class="stat-value" id="ta-correct">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>📊 回答</div>
+                    <div class="stat-value" id="ta-total">0</div>
+                </div>
+            </div>
+            <div class="riddle-container">
+                <div class="riddle-text" id="ta-riddle-text"></div>
+                <div class="choices" id="ta-choices"></div>
+            </div>
+            <button class="back-btn" onclick="endTimeAttack()">メニューにもどる</button>
+        </div>
+
+        <!-- タイムアタック結果画面 -->
+        <div id="time-attack-result-screen" class="screen">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">🎉 結果発表！</h2>
+            <div class="result-stats">
+                <div class="result-stats-item">正解数: <span id="result-correct">0</span>問</div>
+                <div class="result-stats-item">回答数: <span id="result-total">0</span>問</div>
+                <div class="result-stats-item">正解率: <span id="result-accuracy">0</span>%</div>
+            </div>
+            <div class="result-rank-icon" id="result-rank-icon"></div>
+            <div class="menu-buttons" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="startTimeAttack()">もう一度挑戦</button>
+                <button class="btn btn-secondary" onclick="showRankings()">ランキングを見る</button>
+                <button class="back-btn" onclick="showMenu()">メニューにもどる</button>
+            </div>
+        </div>
+
+        <!-- ランキング画面 -->
+        <div id="ranking-screen" class="screen">
+            <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">🏆 タイムアタックランキング</h2>
+            <div class="ranking-list" id="ranking-list"></div>
+            <button class="back-btn" onclick="showMenu()">メニューにもどる</button>
+        </div>
     </div>
+
+    <!-- エフェクトコンテナ -->
+    <div id="effect-container" class="effect-container"></div>
 
     <script>
         // ポケモンなぞなぞデータ（人気ポケモン優先）
@@ -861,6 +1120,377 @@
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
+        }
+
+        // タイムアタック関連の変数
+        let timeAttackTimer = null;
+        let timeRemaining = 60;
+        let taCorrectCount = 0;
+        let taTotalCount = 0;
+        let taCurrentRiddle = null;
+        let taComboCount = 0;
+        let taAnsweredCorrectly = false;
+
+        // タイムアタック開始
+        function startTimeAttack() {
+            showCountdown(() => {
+                timeRemaining = 60;
+                taCorrectCount = 0;
+                taTotalCount = 0;
+                taComboCount = 0;
+                updateTimeAttackStats();
+                showScreen('time-attack-screen');
+                loadNextTimeAttackRiddle();
+                startTimer();
+            });
+        }
+
+        // カウントダウン表示
+        function showCountdown(callback) {
+            const overlay = document.createElement('div');
+            overlay.className = 'countdown-overlay';
+            document.body.appendChild(overlay);
+            
+            let count = 3;
+            overlay.textContent = count;
+            
+            const countdownInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    overlay.textContent = count;
+                } else if (count === 0) {
+                    overlay.textContent = 'GO！🚀';
+                } else {
+                    clearInterval(countdownInterval);
+                    document.body.removeChild(overlay);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        // タイマー開始
+        function startTimer() {
+            updateTimerDisplay();
+            timeAttackTimer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 10 && timeRemaining > 0) {
+                    document.getElementById('timer-display').classList.add('warning');
+                }
+                
+                if (timeRemaining === 5) {
+                    showEffectText('⚠️ あと5秒！');
+                }
+                
+                if (timeRemaining <= 0) {
+                    endTimeAttackGame();
+                }
+            }, 1000);
+        }
+
+        // タイマー表示更新
+        function updateTimerDisplay() {
+            const timerDisplay = document.getElementById('timer-display');
+            timerDisplay.textContent = `⏱️ 残り: ${timeRemaining}秒`;
+            if (timeRemaining <= 10) {
+                timerDisplay.classList.add('warning');
+            } else {
+                timerDisplay.classList.remove('warning');
+            }
+        }
+
+        // タイムアタック統計更新
+        function updateTimeAttackStats() {
+            document.getElementById('ta-correct').textContent = taCorrectCount;
+            document.getElementById('ta-total').textContent = taTotalCount;
+        }
+
+        // 次のなぞなぞを読み込み（完全ランダム）
+        function loadNextTimeAttackRiddle() {
+            taAnsweredCorrectly = false;
+            taCurrentRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+            
+            document.getElementById('ta-riddle-text').textContent = taCurrentRiddle.riddle;
+            
+            const choicesContainer = document.getElementById('ta-choices');
+            choicesContainer.innerHTML = '';
+            
+            const shuffledChoices = shuffleArray(taCurrentRiddle.choices);
+            
+            shuffledChoices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = choice;
+                button.onclick = () => checkTimeAttackAnswer(choice, button);
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        // タイムアタック回答チェック
+        function checkTimeAttackAnswer(selectedAnswer, button) {
+            if (taAnsweredCorrectly) return;
+            
+            taAnsweredCorrectly = true;
+            taTotalCount++;
+            
+            const allButtons = document.querySelectorAll('#ta-choices .choice-btn');
+            allButtons.forEach(btn => btn.style.pointerEvents = 'none');
+            
+            if (selectedAnswer === taCurrentRiddle.answer) {
+                button.classList.add('glow-green');
+                taCorrectCount++;
+                taComboCount++;
+                showCorrectEffect();
+                showComboEffect(taComboCount);
+                
+                // 少し待ってから次の問題へ
+                setTimeout(() => {
+                    updateTimeAttackStats();
+                    loadNextTimeAttackRiddle();
+                }, 800);
+            } else {
+                button.classList.add('glow-red');
+                taComboCount = 0;
+                showWrongEffect();
+                
+                // 正解ボタンを光らせる
+                allButtons.forEach(btn => {
+                    if (btn.textContent === taCurrentRiddle.answer) {
+                        btn.classList.add('glow-green');
+                    }
+                });
+                
+                // 画面を揺らす
+                document.querySelector('.container').classList.add('shake-screen');
+                setTimeout(() => {
+                    document.querySelector('.container').classList.remove('shake-screen');
+                }, 500);
+                
+                // 少し待ってから次の問題へ
+                setTimeout(() => {
+                    updateTimeAttackStats();
+                    loadNextTimeAttackRiddle();
+                }, 1000);
+            }
+        }
+
+        // 正解エフェクト
+        function showCorrectEffect() {
+            showEffectText('ピコーン♪✨');
+            showSparkles();
+        }
+
+        // 不正解エフェクト
+        function showWrongEffect() {
+            showEffectText('ブブー💦');
+        }
+
+        // コンボエフェクト
+        function showComboEffect(combo) {
+            let message = '';
+            if (combo === 3) {
+                message = 'グッド！👍';
+            } else if (combo === 5) {
+                message = 'すごい！🔥';
+            } else if (combo === 10) {
+                message = 'パーフェクト！⭐⭐⭐';
+            } else if (combo === 15) {
+                message = 'レジェンド！👑';
+            }
+            
+            if (message) {
+                setTimeout(() => showEffectText(message), 500);
+            }
+        }
+
+        // エフェクトテキスト表示
+        function showEffectText(text) {
+            const container = document.getElementById('effect-container');
+            const effectText = document.createElement('div');
+            effectText.className = 'effect-text';
+            effectText.textContent = text;
+            container.appendChild(effectText);
+            
+            setTimeout(() => {
+                container.removeChild(effectText);
+            }, 1000);
+        }
+
+        // キラキラエフェクト
+        function showSparkles() {
+            const symbols = ['⭐', '💫', '✨'];
+            const container = document.getElementById('effect-container');
+            
+            for (let i = 0; i < 5; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                sparkle.style.left = `${Math.random() * 200 - 100}px`;
+                sparkle.style.top = `${Math.random() * 200 - 100}px`;
+                container.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    if (container.contains(sparkle)) {
+                        container.removeChild(sparkle);
+                    }
+                }, 1000);
+            }
+        }
+
+        // 紙吹雪エフェクト
+        function showConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(confetti)) {
+                            document.body.removeChild(confetti);
+                        }
+                    }, 3000);
+                }, i * 30);
+            }
+        }
+
+        // タイムアタック終了（手動）
+        function endTimeAttack() {
+            if (timeAttackTimer) {
+                clearInterval(timeAttackTimer);
+                timeAttackTimer = null;
+            }
+            showMenu();
+        }
+
+        // タイムアタックゲーム終了
+        function endTimeAttackGame() {
+            if (timeAttackTimer) {
+                clearInterval(timeAttackTimer);
+                timeAttackTimer = null;
+            }
+            
+            showEffectText('ピピピッ！⏰');
+            
+            setTimeout(() => {
+                showTimeAttackResult();
+            }, 1000);
+        }
+
+        // タイムアタック結果表示
+        function showTimeAttackResult() {
+            const accuracy = taTotalCount > 0 ? ((taCorrectCount / taTotalCount) * 100).toFixed(1) : 0;
+            
+            document.getElementById('result-correct').textContent = taCorrectCount;
+            document.getElementById('result-total').textContent = taTotalCount;
+            document.getElementById('result-accuracy').textContent = accuracy;
+            
+            // ランキングに保存
+            const isNewRecord = saveRanking(taCorrectCount, taTotalCount, accuracy);
+            
+            // ランクアイコン表示
+            const rankIcon = document.getElementById('result-rank-icon');
+            if (isNewRecord) {
+                rankIcon.textContent = '🎉 新記録！🎉';
+                if (isTop3(taCorrectCount)) {
+                    showConfetti();
+                }
+            } else {
+                rankIcon.textContent = '';
+            }
+            
+            showScreen('time-attack-result-screen');
+        }
+
+        // ランキング保存
+        function saveRanking(score, total, accuracy) {
+            const rankings = loadRankings();
+            const date = new Date().toLocaleDateString('ja-JP');
+            
+            const newEntry = {
+                score: score,
+                total: total,
+                accuracy: parseFloat(accuracy),
+                date: date
+            };
+            
+            rankings.push(newEntry);
+            
+            // ソート: 正解数降順、正解率降順
+            rankings.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return b.accuracy - a.accuracy;
+            });
+            
+            // 新記録かチェック（Top 10に入ったか）
+            const isNewRecord = rankings.slice(0, 10).some(r => 
+                r.score === score && r.total === total && r.accuracy === parseFloat(accuracy)
+            );
+            
+            // Top 10のみ保存
+            const top10 = rankings.slice(0, 10);
+            localStorage.setItem('pokemon-nazonazo-rankings', JSON.stringify(top10));
+            
+            return isNewRecord;
+        }
+
+        // ランキング読み込み
+        function loadRankings() {
+            const saved = localStorage.getItem('pokemon-nazonazo-rankings');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        // Top 3入りチェック
+        function isTop3(score) {
+            const rankings = loadRankings();
+            rankings.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return b.accuracy - a.accuracy;
+            });
+            
+            if (rankings.length < 3) return true;
+            return score >= rankings[2].score;
+        }
+
+        // ランキング表示
+        function showRankings() {
+            const rankings = loadRankings();
+            const container = document.getElementById('ranking-list');
+            container.innerHTML = '';
+            
+            if (rankings.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">まだ記録がありません</p>';
+            } else {
+                const medals = ['🥇', '🥈', '🥉'];
+                rankings.forEach((ranking, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'ranking-item';
+                    
+                    const rank = index < 3 ? medals[index] : `${index + 1}位`;
+                    
+                    item.innerHTML = `
+                        <div class="ranking-rank">${rank}</div>
+                        <div style="flex: 1;">
+                            <div class="ranking-score">${ranking.score}問 <span class="ranking-accuracy">(${ranking.accuracy}%)</span></div>
+                            <div class="ranking-date">${ranking.date}</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(item);
+                });
+            }
+            
+            showScreen('ranking-screen');
         }
 
         // 初期化
