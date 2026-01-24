@@ -478,10 +478,10 @@
         <!-- メインメニュー -->
         <div id="menu-screen" class="screen active">
             <div class="menu-buttons">
-                <button id="start-btn" class="btn btn-primary" onclick="startGame()">なぞなぞスタート！</button>
-                <button class="btn btn-secondary" onclick="startTimeAttack()">⏱️ タイムアタック！</button>
-                <button class="btn btn-secondary" onclick="showCollection()">ずかん</button>
-                <button class="btn btn-secondary" onclick="showRankings()">🏆 ランキング</button>
+                <button id="start-btn" class="btn btn-primary" onclick="startGame()" aria-label="なぞなぞスタート">なぞなぞスタート！</button>
+                <button class="btn btn-secondary" onclick="startTimeAttack()" aria-label="タイムアタックモード">⏱️ タイムアタック！</button>
+                <button class="btn btn-secondary" onclick="showCollection()" aria-label="ポケモンずかん">ずかん</button>
+                <button class="btn btn-secondary" onclick="showRankings()" aria-label="ランキング">🏆 ランキング</button>
             </div>
             <div class="stats">
                 <p>クリアしたなぞなぞ: <span id="total-solved">0</span> / <span id="total-riddles">0</span></p>
@@ -1431,9 +1431,10 @@
             });
             
             // 新記録かチェック（Top 10に入ったか）
-            const isNewRecord = rankings.slice(0, 10).some(r => 
-                r.score === score && r.total === total && r.accuracy === parseFloat(accuracy)
+            const newEntryIndex = rankings.findIndex(r => 
+                r.score === score && r.total === total && r.accuracy === parseFloat(accuracy) && r.date === date
             );
+            const isNewRecord = newEntryIndex < 10;
             
             // Top 10のみ保存
             const top10 = rankings.slice(0, 10);
