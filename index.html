@@ -469,11 +469,149 @@
                 font-size: 3em;
             }
         }
+
+        /* ===== 全部入りアップグレード追加分 ===== */
+        body {
+            background: linear-gradient(135deg, #ffcb05 0%, #ff7847 45%, #3d7dca 100%);
+            background-size: 200% 200%;
+            animation: bgMove 18s ease infinite;
+        }
+        @keyframes bgMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .container { animation: popIn 0.45s ease-out; }
+        @keyframes popIn {
+            0% { transform: scale(0.96); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pokeball {
+            display: inline-block;
+            width: 0.72em; height: 0.72em;
+            border-radius: 50%;
+            border: 0.06em solid #222;
+            background: linear-gradient(to bottom, #ee1515 0 46%, #222 46% 54%, #f8f8f8 54% 100%);
+            position: relative;
+            vertical-align: baseline;
+            animation: ballWiggle 2.4s ease-in-out infinite;
+        }
+        @keyframes ballWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-14deg); }
+            75% { transform: rotate(14deg); }
+        }
+        .sound-btn {
+            position: fixed;
+            top: 14px; right: 14px;
+            z-index: 3000;
+            font-size: 1.5em;
+            padding: 10px 14px;
+            border: none; border-radius: 999px;
+            background: rgba(255,255,255,0.92);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            cursor: pointer;
+        }
+        .sound-btn:active { transform: scale(0.92); }
+        .progress-wrap {
+            max-width: 400px; margin: 12px auto 4px;
+            background: #e9ecef; border-radius: 999px; height: 18px; overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #28a745, #8be26b);
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+        .btn-review {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #5b3100;
+        }
+        .btn-review:disabled { opacity: 0.45; }
+        .reset-link {
+            margin-top: 14px;
+            background: none; border: none;
+            color: #868e96; font-size: 0.95em;
+            text-decoration: underline; cursor: pointer;
+        }
+        .stage {
+            text-align: center;
+            margin: 6px 0 14px;
+        }
+        .stage-circle {
+            width: 150px; height: 150px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 35%, #fff8d6 0%, #ffe29a 55%, #ffcb05 100%);
+            border: 5px solid #3d7dca;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+            overflow: hidden;
+        }
+        .stage-emoji {
+            font-size: 5em;
+            transition: filter 0.5s ease, transform 0.3s ease;
+        }
+        .stage-emoji.silhouette { filter: blur(14px) grayscale(70%); transform: scale(1.05); }
+        .stage-emoji.half { filter: blur(6px) grayscale(30%); }
+        .stage-emoji.revealed { animation: revealPop 0.55s ease-out; }
+        @keyframes revealPop {
+            0% { transform: scale(0.4) rotate(-16deg); }
+            60% { transform: scale(1.25) rotate(6deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .stage-name {
+            min-height: 1.5em;
+            font-size: 1.4em; font-weight: bold; color: #3d7dca;
+            margin-top: 8px;
+        }
+        .combo-display {
+            text-align: center;
+            font-size: 1.25em; font-weight: bold;
+            color: #e8590c; min-height: 1.4em;
+        }
+        .combo-display.bump { animation: countUp 0.35s ease-out; }
+        .hint-area {
+            max-width: 520px; margin: 0 auto 14px;
+            text-align: center;
+        }
+        .hint-btn {
+            padding: 12px 22px;
+            font-size: 1.15em; font-weight: bold;
+            border: 3px dashed #f59f00;
+            background: #fff9db; color: #a66a00;
+            border-radius: 12px; cursor: pointer;
+        }
+        .hint-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+        .hint-text {
+            margin-top: 10px;
+            font-size: 1.15em; color: #7a5200;
+            line-height: 1.7; white-space: pre-line;
+        }
+        .choice-btn.eliminated {
+            opacity: 0.25; text-decoration: line-through;
+            pointer-events: none; transform: none !important;
+        }
+        .score-pop {
+            position: fixed; z-index: 2500;
+            font-size: 2em; font-weight: bold; color: #ffd43b;
+            text-shadow: 2px 2px 0 #e8590c;
+            pointer-events: none;
+            animation: scoreFloat 0.9s ease-out forwards;
+        }
+        @keyframes scoreFloat {
+            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+            25% { opacity: 1; transform: translateY(-14px) scale(1.15); }
+            100% { transform: translateY(-64px) scale(1); opacity: 0; }
+        }
+        .mode-label {
+            text-align: center; font-size: 1.1em; font-weight: bold;
+            color: #a66a00; min-height: 1.3em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 ポケモンなぞなぞ 🎮</h1>
+        <h1><span class="pokeball"></span> ポケモンなぞなぞ <span class="pokeball"></span></h1>
 
         <!-- メインメニュー -->
         <div id="menu-screen" class="screen active">
@@ -482,18 +620,32 @@
                 <button class="btn btn-secondary" onclick="startTimeAttack()" aria-label="タイムアタックモード">⏱️ タイムアタック！</button>
                 <button class="btn btn-secondary" onclick="showCollection()" aria-label="ポケモンずかん">ずかん</button>
                 <button class="btn btn-secondary" onclick="showRankings()" aria-label="ランキング">🏆 ランキング</button>
+                <button id="review-btn" class="btn btn-review" onclick="startReview()" aria-label="にがてふくしゅう">📚 にがてふくしゅう（<span id="wrong-count">0</span>もん）</button>
             </div>
             <div class="stats">
                 <p>クリアしたなぞなぞ: <span id="total-solved">0</span> / <span id="total-riddles">0</span></p>
+                <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+                <p>スコア: <span id="menu-score">0</span>てん</p>
+                <button class="reset-link" onclick="resetProgress()">データを リセット</button>
             </div>
         </div>
 
         <!-- ゲーム画面 -->
         <div id="game-screen" class="screen">
+            <div class="mode-label" id="mode-label"></div>
             <div class="score">スコア: <span id="score">0</span></div>
+            <div class="combo-display" id="combo-display"></div>
+            <div class="stage">
+                <div class="stage-circle"><div class="stage-emoji silhouette" id="stage-emoji">❓</div></div>
+                <div class="stage-name" id="stage-name"></div>
+            </div>
             <div class="riddle-container">
                 <div class="riddle-text" id="riddle-text"></div>
                 <div class="choices" id="choices"></div>
+            </div>
+            <div class="hint-area">
+                <button class="hint-btn" id="hint-btn" onclick="useHint()">💡 ヒント（あと3かい）</button>
+                <div class="hint-text" id="hint-text"></div>
             </div>
             <div id="result-container"></div>
             <button class="back-btn" onclick="showMenu()">メニューにもどる</button>
@@ -549,6 +701,8 @@
             <button class="back-btn" onclick="showMenu()">メニューにもどる</button>
         </div>
     </div>
+
+    <button class="sound-btn" id="sound-btn" onclick="toggleSound()" aria-label="おとの オン・オフ">🔊</button>
 
     <!-- エフェクトコンテナ -->
     <div id="effect-container" class="effect-container"></div>
@@ -877,7 +1031,329 @@
                 choices: ["スイクン", "ライコウ", "エンテイ", "フリーザー"],
                 weight: 3,
                 emoji: "💎"
+            },
+            // 全部入りアップグレードで追加（ID 41-80）
+            {
+                id: 41,
+                riddle: "ノーマルタイプの　むらさきの　ポケモン。\nほかの　ポケモンに　へんしんできる。\nへんしんしても　めだけは　そのまま。\nなんのポケモンかな？",
+                answer: "メタモン",
+                choices: ["メタモン", "ゲンガー", "ゾロア", "ミュウ"],
+                weight: 4,
+                emoji: "💜"
+            },
+            {
+                id: 42,
+                riddle: "ノーマルタイプの　ネコポケモン。\nおでこに　きんの　こばんが　ついている。\nロケットだんの　なかまで　にんげんの　ことばを　はなす。\nなんのポケモンかな？",
+                answer: "ニャース",
+                choices: ["ニャース", "エネコ", "ニャオハ", "マネネ"],
+                weight: 4,
+                emoji: "🐱"
+            },
+            {
+                id: 43,
+                riddle: "みずタイプの　あひるポケモン。\nいつも　ずつうに　なやんでいる。\nずつうが　ひどいと　ふしぎな　ちからが　でる。\nなんのポケモンかな？",
+                answer: "コダック",
+                choices: ["コダック", "ゴルダック", "ポッチャマ", "クワッス"],
+                weight: 4,
+                emoji: "🦆"
+            },
+            {
+                id: 44,
+                riddle: "みず・エスパータイプの　ピンクの　ポケモン。\nいつも　のんびり　ぼーっとしている。\nしっぽを　みずに　つけると　さかなが　つれる。\nなんのポケモンかな？",
+                answer: "ヤドン",
+                choices: ["ヤドン", "ヤドラン", "ラプラス", "マリル"],
+                weight: 4,
+                emoji: "💤"
+            },
+            {
+                id: 45,
+                riddle: "みず・こおりタイプの　おおきい　ポケモン。\nせなかに　ひとを　のせて　うみを　すすむ。\nやさしい　こころを　もち　うたごえが　きれい。\nなんのポケモンかな？",
+                answer: "ラプラス",
+                choices: ["ラプラス", "カメックス", "ギャラドス", "ミロカロス"],
+                weight: 4,
+                emoji: "🦕"
+            },
+            {
+                id: 46,
+                riddle: "みずタイプの　あかい　さかなポケモン。\nとても　よわいけど　がまんづよい。\nしんかすると　こわい　ギャラドスに　なる。\nなんのポケモンかな？",
+                answer: "コイキング",
+                choices: ["コイキング", "ヒンバス", "トサキント", "サニーゴ"],
+                weight: 4,
+                emoji: "🐟"
+            },
+            {
+                id: 47,
+                riddle: "みず・ひこうタイプの　あおくて　おおきい　ポケモン。\nコイキングが　しんかした　すがた。\nおこると　まちを　こわすほど　あばれる。\nなんのポケモンかな？",
+                answer: "ギャラドス",
+                choices: ["ギャラドス", "ラプラス", "カイリュー", "ボーマンダ"],
+                weight: 4,
+                emoji: "🐉"
+            },
+            {
+                id: 48,
+                riddle: "ほのおタイプの　うまポケモン。\nたてがみと　しっぽが　ほのおで　できている。\n１じかんに　240キロで　はしる。\nなんのポケモンかな？",
+                answer: "ポニータ",
+                choices: ["ポニータ", "ギャロップ", "ウインディ", "バドレックス"],
+                weight: 3,
+                emoji: "🐴"
+            },
+            {
+                id: 49,
+                riddle: "でんきタイプの　あかちゃんネズミポケモン。\nピカチュウの　しんかまえの　すがた。\nあまえんぼうで　でんきが　もれやすい。\nなんのポケモンかな？",
+                answer: "ピチュー",
+                choices: ["ピチュー", "ピカチュウ", "ライチュウ", "パモ"],
+                weight: 4,
+                emoji: "⚡"
+            },
+            {
+                id: 50,
+                riddle: "フェアリータイプの　たまごがらポケモン。\nしあわせを　もたらすと　いわれている。\nからを　かぶっていて　とっても　やさしい。\nなんのポケモンかな？",
+                answer: "トゲピー",
+                choices: ["トゲピー", "ピッピ", "ラッキー", "プリン"],
+                weight: 4,
+                emoji: "🥚"
+            },
+            {
+                id: 51,
+                riddle: "みず・フェアリータイプの　あおい　まるい　ポケモン。\nしっぽの　さきが　ボールみたい。\nみずの　うえを　はずんで　すすめる。\nなんのポケモンかな？",
+                answer: "マリル",
+                choices: ["マリル", "マリルリ", "ルリリ", "ポッチャマ"],
+                weight: 3,
+                emoji: "💧"
+            },
+            {
+                id: 52,
+                riddle: "ノーマルタイプの　あおい　ポケモン。\n「がまん」が　とくい。\nソーナノの　しんかした　すがたで　カウンターが　つよい。\nなんのポケモンかな？",
+                answer: "ソーナンス",
+                choices: ["ソーナンス", "ソーナノ", "メタモン", "カビゴン"],
+                weight: 3,
+                emoji: "🛡️"
+            },
+            {
+                id: 53,
+                riddle: "みずタイプの　あおい　ポケモン。\nイーブイが　みずのいしで　しんかした　すがた。\nからだが　みずに　とけるように　きえる。\nなんのポケモンかな？",
+                answer: "シャワーズ",
+                choices: ["シャワーズ", "イーブイ", "サンダース", "ブースター"],
+                weight: 4,
+                emoji: "💧"
+            },
+            {
+                id: 54,
+                riddle: "でんきタイプの　きいろい　ポケモン。\nイーブイが　かみなりのいしで　しんかした　すがた。\nけが　はりみたいに　とがっている。\nなんのポケモンかな？",
+                answer: "サンダース",
+                choices: ["サンダース", "イーブイ", "シャワーズ", "ブースター"],
+                weight: 4,
+                emoji: "⚡"
+            },
+            {
+                id: 55,
+                riddle: "ほのおタイプの　オレンジの　ポケモン。\nイーブイが　ほのおのいしで　しんかした　すがた。\nもふもふの　くびまわりが　とくちょう。\nなんのポケモンかな？",
+                answer: "ブースター",
+                choices: ["ブースター", "イーブイ", "シャワーズ", "サンダース"],
+                weight: 4,
+                emoji: "🔥"
+            },
+            {
+                id: 56,
+                riddle: "くさタイプの　みどりの　ポケモン。\nイーブイが　しんかした　すがた。\nはっぱみたいな　みみと　しっぽを　もつ。\nなんのポケモンかな？",
+                answer: "リーフィア",
+                choices: ["リーフィア", "イーブイ", "グレイシア", "ニンフィア"],
+                weight: 4,
+                emoji: "🍃"
+            },
+            {
+                id: 57,
+                riddle: "くさタイプの　みどりの　ネコポケモン。\nパルデアちほうの　さいしょの　ポケモン。\nまえあしを　こすると　いい　かおりが　する。\nなんのポケモンかな？",
+                answer: "ニャオハ",
+                choices: ["ニャオハ", "ニャース", "エネコ", "キモリ"],
+                weight: 5,
+                emoji: "🌿"
+            },
+            {
+                id: 58,
+                riddle: "ほのおタイプの　オレンジの　ワニポケモン。\nパルデアちほうの　さいしょの　ポケモン。\nのんびりやで　ずじょうの　ほのおが　ゆれる。\nなんのポケモンかな？",
+                answer: "ホゲータ",
+                choices: ["ホゲータ", "ヒトカゲ", "ワニノコ", "アチャモ"],
+                weight: 5,
+                emoji: "🔥"
+            },
+            {
+                id: 59,
+                riddle: "みずタイプの　あおい　こがもポケモン。\nパルデアちほうの　さいしょの　ポケモン。\nあたまの　はねが　ジェルで　ととのっている。\nなんのポケモンかな？",
+                answer: "クワッス",
+                choices: ["クワッス", "ポッチャマ", "コダック", "ミズゴロウ"],
+                weight: 5,
+                emoji: "💧"
+            },
+            {
+                id: 60,
+                riddle: "でんきタイプの　オレンジの　ネズミポケモン。\nパルデアちほうで　みつかった。\nほっぺの　でんきぶくろを　てで　おして　ほうでんする。\nなんのポケモンかな？",
+                answer: "パモ",
+                choices: ["パモ", "ピカチュウ", "デデンネ", "ピチュー"],
+                weight: 4,
+                emoji: "⚡"
+            },
+            {
+                id: 61,
+                riddle: "フェアリー・でんきタイプの　ピンクの　ポケモン。\nおおきな　こえで　さけぶ。\nしっぽの　さきから　おとを　だして　あいてを　おどろかせる。\nなんのポケモンかな？",
+                answer: "サケブシッポ",
+                choices: ["サケブシッポ", "プリン", "プクリン", "ニンフィア"],
+                weight: 5,
+                emoji: "📣"
+            },
+            {
+                id: 62,
+                riddle: "かくとう・ドラゴンタイプの　でんせつのポケモン。\nパルデアちほうの　あかあおの　せかいで　であう。\nはねの　ような　すがたで　だいちを　かける。\nなんのポケモンかな？",
+                answer: "コライドン",
+                choices: ["コライドン", "ミライドン", "レックウザ", "ガブリアス"],
+                weight: 3,
+                emoji: "🦖"
+            },
+            {
+                id: 63,
+                riddle: "でんき・ドラゴンタイプの　でんせつのポケモン。\nパルデアちほうで　であう　みらいの　すがた。\nからだが　てつで　できていて　でんきを　はなつ。\nなんのポケモンかな？",
+                answer: "ミライドン",
+                choices: ["ミライドン", "コライドン", "メタグロス", "ジバコイル"],
+                weight: 3,
+                emoji: "🤖"
+            },
+            {
+                id: 64,
+                riddle: "でんき・フェアリータイプの　ちいさな　ネズミポケモン。\nカロスちほうで　みつかった。\nひげが　でんぱを　キャッチする　アンテナに　なっている。\nなんのポケモンかな？",
+                answer: "デデンネ",
+                choices: ["デデンネ", "ピカチュウ", "エモンガ", "パモ"],
+                weight: 3,
+                emoji: "🐭"
+            },
+            {
+                id: 65,
+                riddle: "でんき・ひこうタイプの　モモンガポケモン。\nそらを　すべるように　とぶ。\nほっぺに　でんきぶくろが　ある。\nなんのポケモンかな？",
+                answer: "エモンガ",
+                choices: ["エモンガ", "デデンネ", "パチリス", "ピカチュウ"],
+                weight: 3,
+                emoji: "🐿️"
+            },
+            {
+                id: 66,
+                riddle: "でんきタイプの　しろい　リスポケモン。\nシンオウちほうで　みつかった。\nほっぺが　ピンクで　しっぽが　ギザギザ。\nなんのポケモンかな？",
+                answer: "パチリス",
+                choices: ["パチリス", "エモンガ", "デデンネ", "ミミロル"],
+                weight: 3,
+                emoji: "🐿️"
+            },
+            {
+                id: 67,
+                riddle: "ゴースト・どくタイプの　ガスポケモン。\nガスで　できていて　かべを　すりぬける。\nゲンガーの　しんかまえの　すがた。\nなんのポケモンかな？",
+                answer: "ゴース",
+                choices: ["ゴース", "ゴースト", "ゲンガー", "ムウマ"],
+                weight: 3,
+                emoji: "👻"
+            },
+            {
+                id: 68,
+                riddle: "エスパータイプの　きいろい　ポケモン。\n１にち　18じかん　ねている。\nテレポートで　きけんから　にげる。\nなんのポケモンかな？",
+                answer: "ケーシィ",
+                choices: ["ケーシィ", "ユンゲラー", "フーディン", "ラルトス"],
+                weight: 3,
+                emoji: "💤"
+            },
+            {
+                id: 69,
+                riddle: "いわ・じめんタイプの　ながい　ヘビポケモン。\nいわで　できた　からだを　もつ。\nじめんを　ほって　すすみ　じしんを　おこす。\nなんのポケモンかな？",
+                answer: "イワーク",
+                choices: ["イワーク", "ハガネール", "ミロカロス", "ボスゴドラ"],
+                weight: 3,
+                emoji: "🪨"
+            },
+            {
+                id: 70,
+                riddle: "ノーマルタイプの　ピンクの　ポケモン。\nおなかに　タマゴを　もっている。\nたたかいで　きずついた　ポケモンを　いやす　やさしい　ポケモン。\nなんのポケモンかな？",
+                answer: "ラッキー",
+                choices: ["ラッキー", "ピッピ", "プリン", "トゲピー"],
+                weight: 3,
+                emoji: "💗"
+            },
+            {
+                id: 71,
+                riddle: "フェアリータイプの　ピンクの　ポケモン。\nつきの　ひかりで　おどる。\nおおきな　みみで　かすかな　おとも　ききとれる。\nなんのポケモンかな？",
+                answer: "ピッピ",
+                choices: ["ピッピ", "プリン", "ピィ", "トゲピー"],
+                weight: 3,
+                emoji: "🌙"
+            },
+            {
+                id: 72,
+                riddle: "いわタイプの　きの　かたちの　ポケモン。\nきに　にせて　かくれている。\nみずが　にがてで　あめの　ひは　かくれる。\nなんのポケモンかな？",
+                answer: "ウソッキー",
+                choices: ["ウソッキー", "ウソハチ", "キレイハナ", "ダイノーズ"],
+                weight: 3,
+                emoji: "🌳"
+            },
+            {
+                id: 73,
+                riddle: "みずタイプの　あおい　カメポケモン。\nゼニガメが　しんかした　すがた。\nふさふさの　みみと　しっぽが　とくちょう。\nなんのポケモンかな？",
+                answer: "カメール",
+                choices: ["カメール", "ゼニガメ", "カメックス", "ミズゴロウ"],
+                weight: 3,
+                emoji: "💧"
+            },
+            {
+                id: 74,
+                riddle: "ほのおタイプの　オレンジの　トカゲポケモン。\nヒトカゲが　しんかした　すがた。\nきしょうが　あらくて　しっぽの　ほのおが　おおきい。\nなんのポケモンかな？",
+                answer: "リザード",
+                choices: ["リザード", "ヒトカゲ", "リザードン", "アチャモ"],
+                weight: 3,
+                emoji: "🔥"
+            },
+            {
+                id: 75,
+                riddle: "くさ・どくタイプの　みどりの　ポケモン。\nフシギダネが　しんかした　すがた。\nせなかの　つぼみが　おおきく　そだっている。\nなんのポケモンかな？",
+                answer: "フシギソウ",
+                choices: ["フシギソウ", "フシギダネ", "フシギバナ", "キモリ"],
+                weight: 3,
+                emoji: "🌱"
+            },
+            {
+                id: 76,
+                riddle: "ドラゴンタイプの　あおくて　ちいさい　ポケモン。\nカイリューの　しんかまえの　すがた。\nだっぴを　くりかえして　そだつ。\nなんのポケモンかな？",
+                answer: "ミニリュウ",
+                choices: ["ミニリュウ", "ハクリュー", "カイリュー", "タツベイ"],
+                weight: 3,
+                emoji: "🌊"
+            },
+            {
+                id: 77,
+                riddle: "ほのおタイプの　こいぬポケモン。\nウインディの　しんかまえの　すがた。\nゆうかんで　おおきな　こえで　ほえる。\nなんのポケモンかな？",
+                answer: "ガーディ",
+                choices: ["ガーディ", "ウインディ", "ポニータ", "イーブイ"],
+                weight: 3,
+                emoji: "🐶"
+            },
+            {
+                id: 78,
+                riddle: "いわ・じめんタイプの　ちいさい　ポケモン。\nバンギラスの　しんかまえの　すがた。\nつちを　たべて　やま１つ　たいらげる。\nなんのポケモンかな？",
+                answer: "ヨーギラス",
+                choices: ["ヨーギラス", "サナギラス", "バンギラス", "フカマル"],
+                weight: 3,
+                emoji: "⛰️"
+            },
+            {
+                id: 79,
+                riddle: "いわ・あくタイプの　みどりの　おおきい　ポケモン。\nヨーギラスが　２かい　しんかした　すがた。\nかたい　よろいの　からだで　まちを　こわす。\nなんのポケモンかな？",
+                answer: "バンギラス",
+                choices: ["バンギラス", "ボスゴドラ", "ガブリアス", "ボーマンダ"],
+                weight: 3,
+                emoji: "🌋"
+            },
+            {
+                id: 80,
+                riddle: "ほのお・ひこうタイプの　でんせつの　とりポケモン。\nにじいろの　はねを　もち　しあわせを　もたらす。\nジョウトちほうの　スズのとうに　あらわれる。\nなんのポケモンかな？",
+                answer: "ホウオウ",
+                choices: ["ホウオウ", "ファイヤー", "ルギア", "フリーザー"],
+                weight: 3,
+                emoji: "🌈"
             }
+
         ];
 
         // ゲーム状態
@@ -885,6 +1361,12 @@
         let currentRiddle = null;
         let solvedRiddles = new Set();
         let answeredCorrectly = false;
+        let wrongRiddles = new Set();
+        let gameMode = 'normal'; // 'normal' | 'review' | 'single'
+        let reviewQueue = [];
+        let comboCount = 0;
+        let hintsUsed = 0;
+        let questionLocked = false;
 
         // ローカルストレージから進捗を読み込む
         function loadProgress() {
@@ -892,6 +1374,7 @@
             if (saved) {
                 const data = JSON.parse(saved);
                 solvedRiddles = new Set(data.solvedRiddles || []);
+                wrongRiddles = new Set(data.wrongRiddles || []);
                 score = data.score || 0;
             }
             updateStats();
@@ -901,6 +1384,7 @@
         function saveProgress() {
             const data = {
                 solvedRiddles: Array.from(solvedRiddles),
+                wrongRiddles: Array.from(wrongRiddles),
                 score: score
             };
             localStorage.setItem('pokemon-nazonazo-progress', JSON.stringify(data));
@@ -911,6 +1395,14 @@
             document.getElementById('total-solved').textContent = solvedRiddles.size;
             document.getElementById('total-riddles').textContent = riddles.length;
             document.getElementById('score').textContent = score;
+            const menuScore = document.getElementById('menu-score');
+            if (menuScore) menuScore.textContent = score;
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.style.width = (riddles.length ? (solvedRiddles.size / riddles.length) * 100 : 0) + '%';
+            const wc = document.getElementById('wrong-count');
+            if (wc) wc.textContent = wrongRiddles.size;
+            const rb = document.getElementById('review-btn');
+            if (rb) rb.disabled = wrongRiddles.size === 0;
         }
 
         // スタートボタンの状態を更新
@@ -960,13 +1452,21 @@
 
         // ゲーム開始
         function startGame() {
-            answeredCorrectly = false;
-            currentRiddle = getWeightedRandomRiddle();
-            
+            gameMode = 'normal';
+            const riddle = getWeightedRandomRiddle();
+
             // すべてクリアしている場合
-            if (currentRiddle === null) {
-                const resultContainer = document.getElementById('result-container');
-                resultContainer.innerHTML = `
+            if (riddle === null) {
+                showScreen('game-screen');
+                document.getElementById('riddle-text').textContent = '';
+                document.getElementById('choices').innerHTML = '';
+                document.getElementById('mode-label').textContent = '';
+                document.getElementById('stage-emoji').textContent = '🎉';
+                document.getElementById('stage-emoji').className = 'stage-emoji revealed';
+                document.getElementById('stage-name').textContent = '';
+                document.getElementById('hint-btn').disabled = true;
+                document.getElementById('hint-text').textContent = '';
+                document.getElementById('result-container').innerHTML = `
                     <div class="result-message complete">
                         🎉🎉🎉<br>
                         ずかんコンプリート！<br>
@@ -977,81 +1477,257 @@
                         <button class="btn btn-secondary" onclick="showCollection()">ずかんを　みる</button>
                     </div>
                 `;
-                document.getElementById('riddle-text').textContent = '';
-                document.getElementById('choices').innerHTML = '';
-                showScreen('game-screen');
+                playSE('fanfare');
+                showConfetti();
                 return;
             }
-            
-            document.getElementById('riddle-text').textContent = currentRiddle.riddle;
-            
-            // 選択肢を表示
+
+            renderRiddle(riddle);
+        }
+
+        // なぞなぞを画面に出す（通常・ふくしゅう・図鑑から共通）
+        function renderRiddle(riddle) {
+            answeredCorrectly = false;
+            questionLocked = false;
+            hintsUsed = 0;
+            currentRiddle = riddle;
+
+            document.getElementById('riddle-text').textContent = riddle.riddle;
+
             const choicesContainer = document.getElementById('choices');
             choicesContainer.innerHTML = '';
-            
-            // シャッフルした選択肢を表示
-            const shuffledChoices = shuffleArray(currentRiddle.choices);
-            
-            shuffledChoices.forEach(choice => {
+
+            shuffleArray(riddle.choices).forEach(choice => {
                 const button = document.createElement('button');
                 button.className = 'choice-btn';
                 button.textContent = choice;
                 button.onclick = () => checkAnswer(choice, button);
                 choicesContainer.appendChild(button);
             });
-            
+
             document.getElementById('result-container').innerHTML = '';
+
+            // ステージ: 最初はぼんやりシルエット、正解で姿が現れる
+            const stageEmoji = document.getElementById('stage-emoji');
+            stageEmoji.textContent = riddle.emoji;
+            stageEmoji.className = 'stage-emoji silhouette';
+            document.getElementById('stage-name').textContent = '';
+
+            // ヒントをリセット
+            document.getElementById('hint-text').textContent = '';
+            const hintBtn = document.getElementById('hint-btn');
+            hintBtn.disabled = false;
+            hintBtn.textContent = '💡 ヒント（あと3かい）';
+
+            document.getElementById('mode-label').textContent =
+                gameMode === 'review' ? '📚 にがてふくしゅう中' : '';
+            updateComboDisplay();
             showScreen('game-screen');
+        }
+
+        // 「つぎのもんだい」ボタン（ふくしゅう中はふくしゅうの続きへ）
+        function nextQuestion() {
+            if (gameMode === 'review') {
+                nextReview();
+            } else {
+                startGame();
+            }
+        }
+
+        // にがてふくしゅう開始
+        function startReview() {
+            if (wrongRiddles.size === 0) return;
+            gameMode = 'review';
+            reviewQueue = shuffleArray(riddles.filter(r => wrongRiddles.has(r.id)));
+            nextReview();
+        }
+
+        // ふくしゅうの次の問題
+        function nextReview() {
+            if (reviewQueue.length === 0) {
+                gameMode = 'normal';
+                showScreen('game-screen');
+                document.getElementById('riddle-text').textContent = '';
+                document.getElementById('choices').innerHTML = '';
+                document.getElementById('mode-label').textContent = '';
+                document.getElementById('stage-emoji').textContent = '🎉';
+                document.getElementById('stage-emoji').className = 'stage-emoji revealed';
+                document.getElementById('stage-name').textContent = '';
+                document.getElementById('hint-btn').disabled = true;
+                document.getElementById('hint-text').textContent = '';
+                document.getElementById('result-container').innerHTML = `
+                    <div class="result-message complete">
+                        🎉 ふくしゅう　かんりょう！<br>
+                        ${wrongRiddles.size === 0 ? 'にがては　ぜんぶ　こくふくしたよ！すごい！' : 'のこりの　にがては　また　こんど　がんばろう！'}
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="showMenu()">メニューにもどる</button>
+                    </div>
+                `;
+                playSE('fanfare');
+                showConfetti();
+                return;
+            }
+            renderRiddle(reviewQueue.shift());
+        }
+
+        // ヒント（1: 最初の文字 / 2: 文字数＋少し見える / 3: 選択肢を2つ消す＋はっきり見える）
+        function useHint() {
+            if (!currentRiddle || questionLocked || hintsUsed >= 3) return;
+            hintsUsed++;
+            playSE('hint');
+            const hintText = document.getElementById('hint-text');
+            const core = currentRiddle.answer.split('（')[0];
+            const stageEmoji = document.getElementById('stage-emoji');
+            let line = '';
+            if (hintsUsed === 1) {
+                line = `ヒント1：なまえの　さいしょの　もじは「${core[0]}」だよ`;
+            } else if (hintsUsed === 2) {
+                line = `ヒント2：なまえは　${core.length}もじ。すがたが　すこし　みえてきた！`;
+                stageEmoji.className = 'stage-emoji half';
+            } else if (hintsUsed === 3) {
+                line = 'ヒント3：ちがう　こたえを　2つ　けしたよ。すがたも　はっきり　みえる！';
+                stageEmoji.className = 'stage-emoji';
+                const wrongBtns = shuffleArray(
+                    Array.from(document.querySelectorAll('#choices .choice-btn'))
+                        .filter(b => b.textContent !== currentRiddle.answer)
+                );
+                wrongBtns.slice(0, 2).forEach(b => b.classList.add('eliminated'));
+            }
+            hintText.textContent = (hintText.textContent ? hintText.textContent + '\n' : '') + line;
+            const hintBtn = document.getElementById('hint-btn');
+            hintBtn.textContent = hintsUsed >= 3 ? '💡 ヒントは　おわり' : `💡 ヒント（あと${3 - hintsUsed}かい）`;
+            hintBtn.disabled = hintsUsed >= 3;
+        }
+
+        // コンボ表示
+        function updateComboDisplay() {
+            const el = document.getElementById('combo-display');
+            if (!el) return;
+            el.textContent = comboCount >= 2 ? `🔥 ${comboCount}れんぞく　せいかい！` : '';
+            if (comboCount >= 2) {
+                el.classList.remove('bump');
+                void el.offsetWidth;
+                el.classList.add('bump');
+            }
+        }
+
+        // ステージの姿を現す
+        function revealStage() {
+            const stageEmoji = document.getElementById('stage-emoji');
+            stageEmoji.className = 'stage-emoji revealed';
+            document.getElementById('stage-name').textContent = currentRiddle.answer;
+        }
+
+        // スコアの数字ポップ
+        function showScorePop(points) {
+            const el = document.createElement('div');
+            el.className = 'score-pop';
+            el.textContent = `+${points}てん`;
+            el.style.left = '50%';
+            el.style.top = '30%';
+            document.body.appendChild(el);
+            setTimeout(() => {
+                if (document.body.contains(el)) document.body.removeChild(el);
+            }, 950);
+        }
+
+        // データをリセット
+        function resetProgress() {
+            if (!confirm('データを　リセットしますか？\nずかん・スコア・にがてリストが　ぜんぶ　きえます。')) return;
+            solvedRiddles = new Set();
+            wrongRiddles = new Set();
+            score = 0;
+            comboCount = 0;
+            localStorage.removeItem('pokemon-nazonazo-progress');
+            localStorage.removeItem('pokemon-nazonazo-rankings');
+            saveProgress();
+            updateStats();
+            updateStartButton();
+            updateComboDisplay();
+            playSE('pop');
+            alert('リセットしたよ！');
         }
 
         // 答えをチェック
         function checkAnswer(selectedAnswer, button) {
-            if (answeredCorrectly) return;
-            
-            const allButtons = document.querySelectorAll('.choice-btn');
+            if (questionLocked) return;
+            questionLocked = true;
+
+            const allButtons = document.querySelectorAll('#choices .choice-btn');
             allButtons.forEach(btn => btn.style.pointerEvents = 'none');
-            
+            document.getElementById('hint-btn').disabled = true;
+
             const resultContainer = document.getElementById('result-container');
-            
+
             if (selectedAnswer === currentRiddle.answer) {
                 button.classList.add('correct');
-                score += 10;
+                comboCount++;
+                const comboBonus = Math.min((comboCount - 1) * 2, 10);
+                let points = 10 + comboBonus;
+                if (hintsUsed >= 3) points = 5 + comboBonus;
+                score += points;
                 answeredCorrectly = true;
                 solvedRiddles.add(currentRiddle.id);
-                
+                const graduated = wrongRiddles.delete(currentRiddle.id);
+
+                playSE('correct');
+                showSparkles();
+                revealStage();
+                showScorePop(points);
+
                 resultContainer.innerHTML = `
                     <div class="result-message correct">
                         🎉 せいかい！ ${currentRiddle.emoji}<br>
-                        ${currentRiddle.answer}だよ！
+                        ${currentRiddle.answer}だよ！ +${points}てん
+                        ${graduated ? '<br>にがてを　こくふくしたよ！🌟' : ''}
                     </div>
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="startGame()">つぎのもんだい</button>
+                        <button class="btn btn-primary" onclick="nextQuestion()">つぎのもんだい</button>
                     </div>
                 `;
-                
+
+                if (solvedRiddles.size >= riddles.length) {
+                    playSE('fanfare');
+                    showConfetti();
+                }
                 saveProgress();
                 updateStats();
                 updateStartButton();
             } else {
                 button.classList.add('wrong');
-                
-                // 正解のボタンを表示
+                comboCount = 0;
+                wrongRiddles.add(currentRiddle.id);
+
+                playSE('wrong');
+                revealStage();
+
                 allButtons.forEach(btn => {
                     if (btn.textContent === currentRiddle.answer) {
                         btn.classList.add('correct');
                     }
                 });
-                
+
+                document.querySelector('.container').classList.add('shake-screen');
+                setTimeout(() => {
+                    document.querySelector('.container').classList.remove('shake-screen');
+                }, 500);
+
                 resultContainer.innerHTML = `
                     <div class="result-message wrong">
                         😢 ざんねん！<br>
-                        せいかいは ${currentRiddle.answer} だよ！
+                        せいかいは ${currentRiddle.answer} だよ！<br>
+                        「にがてふくしゅう」に　いれたよ 📚
                     </div>
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="startGame()">つぎのもんだい</button>
+                        <button class="btn btn-primary" onclick="nextQuestion()">つぎのもんだい</button>
                     </div>
                 `;
+
+                saveProgress();
+                updateStats();
             }
+            updateComboDisplay();
         }
 
         // 図鑑を表示
@@ -1085,26 +1761,8 @@
 
         // 特定のなぞなぞを再生
         function playSpecificRiddle(riddle) {
-            answeredCorrectly = false;
-            currentRiddle = riddle;
-            
-            document.getElementById('riddle-text').textContent = riddle.riddle;
-            
-            const choicesContainer = document.getElementById('choices');
-            choicesContainer.innerHTML = '';
-            
-            const shuffledChoices = shuffleArray(riddle.choices);
-            
-            shuffledChoices.forEach(choice => {
-                const button = document.createElement('button');
-                button.className = 'choice-btn';
-                button.textContent = choice;
-                button.onclick = () => checkAnswer(choice, button);
-                choicesContainer.appendChild(button);
-            });
-            
-            document.getElementById('result-container').innerHTML = '';
-            showScreen('game-screen');
+            gameMode = 'single';
+            renderRiddle(riddle);
         }
 
         // メニューを表示
@@ -1153,13 +1811,16 @@
             
             let count = 3;
             overlay.textContent = count;
+            playSE('count');
             
             const countdownInterval = setInterval(() => {
                 count--;
                 if (count > 0) {
                     overlay.textContent = count;
+            playSE('count');
                 } else if (count === 0) {
                     overlay.textContent = 'GO！🚀';
+                    playSE('go');
                 } else {
                     clearInterval(countdownInterval);
                     document.body.removeChild(overlay);
@@ -1175,6 +1836,10 @@
                 timeRemaining--;
                 updateTimerDisplay();
                 
+                if (timeRemaining <= 5 && timeRemaining > 0) {
+                    playSE('tick');
+                }
+
                 if (timeRemaining <= 10 && timeRemaining > 0) {
                     document.getElementById('timer-display').classList.add('warning');
                 }
@@ -1239,6 +1904,7 @@
             
             if (selectedAnswer === taCurrentRiddle.answer) {
                 button.classList.add('glow-green');
+                playSE('correct');
                 taCorrectCount++;
                 taComboCount++;
                 showCorrectEffect();
@@ -1251,6 +1917,7 @@
                 }, 800);
             } else {
                 button.classList.add('glow-red');
+                playSE('wrong');
                 taComboCount = 0;
                 showWrongEffect();
                 
@@ -1377,6 +2044,7 @@
             }
             
             showEffectText('ピピピッ！⏰');
+            playSE('timeup');
             
             setTimeout(() => {
                 showTimeAttackResult();
@@ -1398,6 +2066,7 @@
             const rankIcon = document.getElementById('result-rank-icon');
             if (isNewRecord) {
                 rankIcon.textContent = '🎉 新記録！🎉';
+                playSE('fanfare');
                 if (isTop3(taCorrectCount)) {
                     showConfetti();
                 }
@@ -1494,7 +2163,153 @@
             showScreen('ranking-screen');
         }
 
+        // ===== おと（効果音とBGM、WebAudioで生成） =====
+        let audioCtx = null;
+        let bgmTimer = null;
+        let bgmStep = 0;
+        let soundOn = true;
+        let bgmStarted = false;
+
+        function loadSettings() {
+            const s = localStorage.getItem('pokemon-nazonazo-settings');
+            if (s) {
+                try { soundOn = JSON.parse(s).soundOn !== false; } catch (e) { /* 壊れた設定は無視 */ }
+            }
+            updateSoundButton();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('pokemon-nazonazo-settings', JSON.stringify({ soundOn: soundOn }));
+        }
+
+        function updateSoundButton() {
+            const b = document.getElementById('sound-btn');
+            if (b) b.textContent = soundOn ? '🔊' : '🔇';
+        }
+
+        function ensureAudio() {
+            if (!audioCtx) {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (!AC) return false;
+                audioCtx = new AC();
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            return true;
+        }
+
+        function tone(midi, dur, type, vol, delay) {
+            if (!audioCtx) return;
+            const t = audioCtx.currentTime + (delay || 0);
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type || 'sine';
+            osc.frequency.value = 440 * Math.pow(2, (midi - 69) / 12);
+            gain.gain.setValueAtTime(0.0001, t);
+            gain.gain.exponentialRampToValueAtTime(vol || 0.12, t + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(t);
+            osc.stop(t + dur + 0.05);
+        }
+
+        function playSE(name) {
+            if (!soundOn) return;
+            if (!ensureAudio()) return;
+            if (name === 'click') {
+                tone(88, 0.07, 'square', 0.035);
+            } else if (name === 'pop') {
+                tone(76, 0.1, 'sine', 0.1);
+                tone(88, 0.12, 'sine', 0.08, 0.06);
+            } else if (name === 'hint') {
+                tone(84, 0.12, 'sine', 0.1);
+                tone(91, 0.16, 'sine', 0.08, 0.08);
+            } else if (name === 'correct') {
+                [72, 76, 79, 84].forEach((n, i) => tone(n, 0.16, 'triangle', 0.12, i * 0.07));
+            } else if (name === 'wrong') {
+                tone(45, 0.22, 'sawtooth', 0.055);
+                tone(41, 0.3, 'sawtooth', 0.055, 0.12);
+            } else if (name === 'count') {
+                tone(69, 0.1, 'square', 0.07);
+            } else if (name === 'go') {
+                tone(81, 0.3, 'square', 0.09);
+            } else if (name === 'tick') {
+                tone(93, 0.05, 'square', 0.045);
+            } else if (name === 'timeup') {
+                [81, 81, 81].forEach((n, i) => tone(n, 0.14, 'square', 0.08, i * 0.18));
+            } else if (name === 'fanfare') {
+                [72, 76, 79, 84, 79, 84, 88].forEach((n, i) => tone(n, 0.22, 'triangle', 0.12, i * 0.11));
+            }
+        }
+
+        // BGM: 明るいオリジナルのループ（16ステップ）
+        const BGM_MELODY = [72, 76, 79, 76, 81, 79, 76, 74, 72, 76, 79, 76, 79, 76, 74, 0];
+        const BGM_BASS = [48, 0, 55, 0, 53, 0, 55, 0, 48, 0, 55, 0, 50, 0, 55, 0];
+
+        function startBGM() {
+            if (!soundOn || bgmTimer) return;
+            if (!ensureAudio()) return;
+            bgmTimer = setInterval(() => {
+                if (!soundOn || document.hidden) return;
+                const m = BGM_MELODY[bgmStep % 16];
+                const b = BGM_BASS[bgmStep % 16];
+                if (m) tone(m, 0.19, 'triangle', 0.04);
+                if (b) tone(b, 0.19, 'sine', 0.045);
+                bgmStep++;
+            }, 210);
+        }
+
+        function stopBGM() {
+            if (bgmTimer) {
+                clearInterval(bgmTimer);
+                bgmTimer = null;
+            }
+        }
+
+        function toggleSound() {
+            soundOn = !soundOn;
+            saveSettings();
+            updateSoundButton();
+            if (soundOn) {
+                bgmStarted = true;
+                ensureAudio();
+                startBGM();
+                playSE('pop');
+            } else {
+                // 音オフではBGMも効果音も完全に止める
+                stopBGM();
+                if (audioCtx) audioCtx.suspend();
+            }
+        }
+
+        // 画面を離れたら音を止める（戻ったら再開）
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopBGM();
+                if (audioCtx) audioCtx.suspend();
+            } else if (soundOn && bgmStarted) {
+                ensureAudio();
+                startBGM();
+            }
+        });
+
+        // 最初のタップでBGM開始（自動再生制限のため）
+        document.addEventListener('pointerdown', () => {
+            if (!bgmStarted) {
+                bgmStarted = true;
+                if (soundOn) startBGM();
+            }
+        });
+
+        // ボタンのクリック音
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.btn, .back-btn, .collection-item, .hint-btn')) {
+                playSE('click');
+            }
+        });
+
         // 初期化
+        loadSettings();
         loadProgress();
         updateStartButton();
     </script>
